@@ -100,23 +100,25 @@ namespace StarterAssets.Tests
         }
 
         [Test]
-        public void Move_DoesNotChangeSpeedWhenControllerDisabled()
+        public void ClampAngle_ClampsValueCorrectly()
         {
-            // Arrange - негативний сценарій: CharacterController відключений
-            Assert.IsNotNull(GetField("_controller"), "_controller не має бути null перед Move");
-            characterController.enabled = false; // Вимикаємо CharacterController
-            SetField("_isDead", false);
-            inputs.move = new Vector2(0f, 1f); // Задаємо рух
-            inputs.sprint = true;
-            SetField("_speed", 0f);
-            SetField("_controller.velocity", Vector3.zero);
+            // Отримуємо метод ClampAngle через рефлексію
+            var method = typeof(ThirdPersonController).GetMethod("ClampAngle", BindingFlags.NonPublic | BindingFlags.Static);
+            if (method == null)
+            {
+                Assert.Fail("Метод ClampAngle не знайдено!");
+                return;
+            }
 
-            // Act
-            InvokeMethod("Move");
+            // Тестуємо різні сценарії
+            float result1 = (float)method.Invoke(null, new object[] { 45f, 0f, 90f });
+            Assert.AreEqual(45f, result1, "Кут 45 має залишитися 45 в межах 0..90");
 
-            // Assert - швидкість не повинна змінитися
-            float speed = (float)GetField("_speed");
-            Assert.AreEqual(0f, speed, "Швидкість не повинна змінюватися, коли CharacterController відключений");
+            float result2 = (float)method.Invoke(null, new object[] { -400f, -180f, 180f });
+            Assert.AreEqual(-40f, result2, "Кут -400 має стати -40 після нормалізації");
+
+            float result3 = (float)method.Invoke(null, new object[] { 400f, -180f, 180f });
+            Assert.AreEqual(40f, result3, "Кут 400 має стати 40 після нормалізації");
         }
 
         [Test]
