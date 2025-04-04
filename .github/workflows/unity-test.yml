@@ -13,7 +13,7 @@ jobs:
 
     steps:
       # Checkout коду з репозиторію
-      # - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       # Кешування Unity для прискорення роботи
       - uses: actions/cache@v3
@@ -35,7 +35,7 @@ jobs:
           artifactsPath: artifacts
 
       # Завантаження результатів тестів як артефакти
-    #  - uses: actions/upload-artifact@v3
-      # with:
-        #  name: Test Results
-        #  path: artifacts
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Test Results
+          path: artifacts
