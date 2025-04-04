@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
 
       # Кешування Unity для прискорення роботи
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: Library
           key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
@@ -35,7 +35,7 @@ jobs:
           artifactsPath: artifacts
 
       # Завантаження результатів тестів як артефакти
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: Test Results
           path: artifacts
