@@ -35,7 +35,7 @@ jobs:
           artifactsPath: artifacts
 
       # Завантаження результатів тестів як артефакти
-      - uses: actions/upload-artifact@v3
-        with:
-          name: Test Results
-          path: artifacts
+    #  - uses: actions/upload-artifact@v3
+      # with:
+        #  name: Test Results
+        #  path: artifacts
