@@ -45,6 +45,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
+          projectPath: SquidGame
 
       # Build
       - name: Build project
@@ -54,7 +55,9 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
+          projectPath: SquidGame
           targetPlatform: WebGL
+          
 
       # Output
       - uses: actions/upload-artifact@v4
